@@ -6,4 +6,3 @@ This tool is based on [@alebrandi](https://www.github.com/alebrandi)'s [Subito.i
 ```
 pip install subito_it_searcher@git+"https://github.com/GBiondo1310/subito_it_searcher.git"
 ```
- 
