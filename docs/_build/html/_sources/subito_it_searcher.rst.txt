@@ -1,0 +1,10 @@
+subito\_it\_searcher package
+============================
+
+Module contents
+---------------
+
+.. automodule:: subito_it_searcher
+   :members:
+   :undoc-members:
+   :show-inheritance:

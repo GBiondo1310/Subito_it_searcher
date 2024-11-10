@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "subito_it_searcher"
+version = "0.0.1.dev0"
+authors = [
+    { name="GBiondo1310", email="giacomo.biondelli@gmail.com" },
+]
+description = "A Subito.it convenient search tool"
+readme = "README.md"
+dependencies = [] # TODO - write dependencies
+
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/GBiondo1310/subito_it_searcher.git"
+Github = "https://github.com/GBiondo1310/subito_it_searcher.git"
+Issues = "https://github.com/GBiondo1310/subito_it_searcher.git/issues"
+
+[tool.setuptools.packages]
+find={}
