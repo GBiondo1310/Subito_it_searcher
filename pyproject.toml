@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "subito_it_searcher"
-version = "0.1.0.dev0"
+version = "0.2.0.dev0"
 authors = [
     { name="GBiondo1310", email="giacomo.biondelli@gmail.com" },
 ]
 description = "A Subito.it convenient search tool"
 readme = "README.md"
-dependencies = ["customtkinter"] # TODO - write dependencies
+dependencies = ["customtkinter==5.2.2", "wget==3.2", "pillow==11.0.0", ] # TODO - write dependencies
 
 requires-python = ">=3.8"
 classifiers = [
