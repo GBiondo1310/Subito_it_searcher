@@ -1,0 +1,21 @@
+subito\_it\_searcher.alebrandi package
+======================================
+
+Submodules
+----------
+
+subito\_it\_searcher.alebrandi.subito module
+--------------------------------------------
+
+.. automodule:: subito_it_searcher.alebrandi.subito
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: subito_it_searcher.alebrandi
+   :members:
+   :undoc-members:
+   :show-inheritance:

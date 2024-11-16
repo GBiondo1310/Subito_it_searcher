@@ -1,5 +1,3 @@
-from test_suite import Suite
-
 # ===== EXAMPLE ===== #
 
 # try:
@@ -12,4 +10,11 @@ from test_suite import Suite
 
 # ===== EXAMPLE ===== #
 
-suite = Suite()
+from test_suite.suite import Suite
+
+try:
+    from tests import functionality_test
+except Exception:
+    import functionality_test
+
+suite = Suite(functionality_test)

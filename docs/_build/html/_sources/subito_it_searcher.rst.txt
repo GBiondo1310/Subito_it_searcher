@@ -1,6 +1,14 @@
 subito\_it\_searcher package
 ============================
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   subito_it_searcher.alebrandi
+
 Module contents
 ---------------
 

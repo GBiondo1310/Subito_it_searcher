@@ -1,0 +1,171 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>subito_it_searcher.alebrandi.subito &mdash; subito_it_searcher 0.0.1.dev0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=75d19225"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            subito_it_searcher
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">subito_it_searcher</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">subito_it_searcher</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">subito_it_searcher.alebrandi.subito</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for subito_it_searcher.alebrandi.subito</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
+
+<div class="viewcode-block" id="BoolReturn">
+<a class="viewcode-back" href="../../../subito_it_searcher.alebrandi.html#subito_it_searcher.alebrandi.subito.BoolReturn">[docs]</a>
+<span class="k">def</span> <span class="nf">BoolReturn</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">value</span> <span class="o">==</span> <span class="kc">False</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;false&#39;</span>
+    <span class="k">elif</span> <span class="n">value</span> <span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;true&#39;</span></div>
+
+
+<div class="viewcode-block" id="Subito">
+<a class="viewcode-back" href="../../../subito_it_searcher.alebrandi.html#subito_it_searcher.alebrandi.subito.Subito">[docs]</a>
+<span class="k">class</span> <span class="nc">Subito</span><span class="p">:</span>
+    
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">search_item</span><span class="p">,</span> <span class="n">category</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">search_item</span> <span class="o">=</span> <span class="n">search_item</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;data.json&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        
+        <span class="k">if</span> <span class="n">category</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">else</span><span class="p">:</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">category</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;categories&#39;</span><span class="p">][</span><span class="n">category</span><span class="p">]</span>
+            
+        
+    <span class="c1">## &quot;municipality&quot; code can be found here --&gt; https://dait.interno.gov.it/territorio-e-autonomie-locali/sut/elenco_codici_comuni.php</span>
+    <span class="c1">## keep in mind that the municipality has to be located in the declared &quot;region&quot; otherwise it won&#39;t return any data</span>
+<div class="viewcode-block" id="Subito.search">
+<a class="viewcode-back" href="../../../subito_it_searcher.alebrandi.html#subito_it_searcher.alebrandi.subito.Subito.search">[docs]</a>
+    <span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">results</span><span class="p">:</span><span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">sort_by</span><span class="p">:</span><span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;date&quot;</span><span class="p">,</span> <span class="n">ad_type</span><span class="p">:</span><span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;for sale&#39;</span><span class="p">,</span><span class="n">region</span><span class="p">:</span><span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+               <span class="n">title_search</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">shipping</span><span class="p">:</span><span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">municipality</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
+        
+        <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://www.subito.it/hades/v1/search/items&quot;</span>
+        
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">region</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">municipality</span><span class="p">))</span> <span class="o">&gt;</span><span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Please specify the region where the municipality is located&#39;</span><span class="p">)</span>   
+        
+        <span class="n">sort_by</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;sort by&#39;</span><span class="p">][</span><span class="n">sort_by</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+        <span class="n">ad_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;ad type&#39;</span><span class="p">][</span><span class="n">ad_type</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+        <span class="n">region</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;regions&#39;</span><span class="p">][</span><span class="n">region</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+        <span class="n">Title_search</span> <span class="o">=</span> <span class="n">BoolReturn</span><span class="p">(</span><span class="n">title_search</span><span class="p">)</span>
+        <span class="n">Shipping</span> <span class="o">=</span> <span class="n">BoolReturn</span><span class="p">(</span><span class="n">shipping</span><span class="p">)</span>
+        
+        
+
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">100</span>  <span class="c1">## new results</span>
+        <span class="n">results_list</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1">## empty list to populate with the results we&#39;ll get </span>
+        
+        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">results</span><span class="p">:</span> <span class="c1">## the REST API gives maximum 100 results, we need to manipulate the request by using a loop to get more</span>
+
+            <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="o">-</span><span class="mi">100</span> <span class="c1">## start search from result in this position</span>
+            
+            <span class="n">querystring</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;q&quot;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_item</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">category</span><span class="p">,</span><span class="s2">&quot;r&quot;</span><span class="p">:</span><span class="n">region</span><span class="p">,</span><span class="s2">&quot;to&quot;</span><span class="p">:</span><span class="nb">str</span><span class="p">(</span><span class="n">municipality</span><span class="p">),</span>
+                           <span class="s2">&quot;t&quot;</span><span class="p">:</span><span class="n">ad_type</span><span class="p">,</span><span class="s2">&quot;qso&quot;</span><span class="p">:</span><span class="n">Title_search</span><span class="p">,</span><span class="s2">&quot;shp&quot;</span><span class="p">:</span><span class="n">Shipping</span><span class="p">,</span><span class="s2">&quot;sort&quot;</span><span class="p">:</span><span class="n">sort_by</span><span class="p">,</span><span class="s2">&quot;lim&quot;</span><span class="p">:</span><span class="n">i</span><span class="p">,</span><span class="s2">&quot;start&quot;</span><span class="p">:</span> <span class="n">j</span><span class="p">}</span>
+            <span class="n">payload</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;Accept&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json, text/plain, */*&quot;</span><span class="p">,</span><span class="s2">&quot;X-Subito-Environment-ID&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">}</span>
+
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">payload</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">querystring</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>  
+            <span class="n">results_list</span> <span class="o">=</span> <span class="n">results_list</span> <span class="o">+</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;ads&#39;</span><span class="p">]</span>  <span class="c1">## append the result of each request</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">querystring</span><span class="p">)</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">100</span> 
+                     
+        <span class="k">return</span> <span class="n">results_list</span></div>
+</div>
+
+            
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, GBiondo1310.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
