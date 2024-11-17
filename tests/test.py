@@ -13,8 +13,9 @@
 from test_suite.suite import Suite
 
 try:
-    from tests import functionality_test
+    from tests import test_functionality, test_advertisement_class
 except Exception:
-    import functionality_test
+    import tests.test_functionality as test_functionality
+    import tests.test_advertisement_class as test_advertisement_class
 
-suite = Suite(functionality_test)
+suite = Suite(test_functionality, test_advertisement_class)
