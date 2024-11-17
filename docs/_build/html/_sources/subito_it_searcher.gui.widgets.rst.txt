@@ -1,0 +1,37 @@
+subito\_it\_searcher.gui.widgets package
+========================================
+
+Submodules
+----------
+
+subito\_it\_searcher.gui.widgets.labeled\_entry module
+------------------------------------------------------
+
+.. automodule:: subito_it_searcher.gui.widgets.labeled_entry
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subito\_it\_searcher.gui.widgets.labeled\_option\_menu module
+-------------------------------------------------------------
+
+.. automodule:: subito_it_searcher.gui.widgets.labeled_option_menu
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subito\_it\_searcher.gui.widgets.warning\_dialog module
+-------------------------------------------------------
+
+.. automodule:: subito_it_searcher.gui.widgets.warning_dialog
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: subito_it_searcher.gui.widgets
+   :members:
+   :undoc-members:
+   :show-inheritance:

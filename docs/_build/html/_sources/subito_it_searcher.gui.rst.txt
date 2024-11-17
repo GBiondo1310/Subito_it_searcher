@@ -1,0 +1,29 @@
+subito\_it\_searcher.gui package
+================================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   subito_it_searcher.gui.widgets
+
+Submodules
+----------
+
+subito\_it\_searcher.gui.main\_window module
+--------------------------------------------
+
+.. automodule:: subito_it_searcher.gui.main_window
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: subito_it_searcher.gui
+   :members:
+   :undoc-members:
+   :show-inheritance:
