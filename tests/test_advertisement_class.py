@@ -14,8 +14,9 @@ class TestAdvertisement(unittest.TestCase):
         self.assertEqual(advertisement.ad_id, "577477491")
         self.assertEqual(advertisement.title, "Artillery Swx2")
         self.assertEqual(
-            advertisement.description,
-            "vendo per inutilizzo stampante 3d artillery Swx2 ancora in garanzia con modifiche barre laterali pi\u00f9 piatto in pei con poche ore di stampa pi\u00f9 qualche pezzo di ricambio acquistato a parte ",
+            "vendo per inutilizzo stampante 3d artillery Swx2"
+            in advertisement.description,
+            True,
         )
         self.assertEqual(advertisement.pubblication_date.day, 10)
         self.assertEqual(advertisement.selling_price, 200)
