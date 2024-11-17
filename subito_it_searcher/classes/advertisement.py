@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from .._consts import SUBITO_DATE_FORMAT
+from .._funcs import add_user_to_blacklist, add_past_ads
 
 
 class Advertisement:
@@ -13,6 +14,11 @@ class Advertisement:
         :type subito_object: dict
         """
         self._obj = subito_object
+
+    def __str__(self) -> str:
+        """String representation
+        :rtype: str"""
+        return str(self.selling_price)
 
     @property
     def ad_id(self) -> str:
@@ -98,3 +104,13 @@ class Advertisement:
             images.append(url)
 
         return images
+
+    def add_user_to_blacklist(self):
+        """Adds advertisement's user to blacklisted users"""
+
+        add_user_to_blacklist(self.user_id)
+
+    def add_to_past_ads(self):
+        """Adds this advertisement to past ads"""
+
+        add_past_ads(self.ad_id)
