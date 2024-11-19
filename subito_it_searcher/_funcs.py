@@ -36,20 +36,38 @@ def get_users_blacklist() -> list[str]:
 def add_past_ads(ad_id: str):
     """Adds the passed ad's id to the past ads history
 
-    :param ads: The id of the ad to add to the past_ads_history
+    :param ad_id: The id of the ad to add to the past_ad_history
     :type ads: str"""
 
     past_ads = get_past_ads()
     if ad_id not in past_ads:
         past_ads.append(ad_id)
 
-    with open("history.json", mode="r") as history_file:
-        history = json.load(history_file)
+        with open("history.json", mode="r") as history_file:
+            history = json.load(history_file)
 
-    history.update({"past_ads": past_ads})
+        history.update({"past_ads": past_ads})
 
-    with open("history.json", mode="w") as history_file:
-        json.dump(history, history_file, indent=4)
+        with open("history.json", mode="w") as history_file:
+            json.dump(history, history_file, indent=4)
+
+
+def remove_from_past_ads(ad_id: str):
+    """Removes the passed ad's id from the past ads history
+
+    :param ad_id: The id of the ad to remove from the past ads history
+    :type ad_id: str"""
+
+    past_ads = get_past_ads()
+    if ad_id in past_ads:
+        past_ads.append(ad_id)
+        with open("history.json", mode="r") as history_file:
+            history = json.load(history_file)
+
+        history.update({"past_ads": past_ads})
+
+        with open("history.json", mode="w") as history_file:
+            json.dump(history, history_file, indent=4)
 
 
 def add_user_to_blacklist(user_id: str):
@@ -61,10 +79,29 @@ def add_user_to_blacklist(user_id: str):
     if user_id not in users_blacklist:
         users_blacklist.append(user_id)
 
-    with open("history.json", mode="r") as history_file:
-        history = json.load(history_file)
+        with open("history.json", mode="r") as history_file:
+            history = json.load(history_file)
 
-    history.update({"users_blacklist": users_blacklist})
+        history.update({"users_blacklist": users_blacklist})
 
-    with open("history.json", mode="w") as history_file:
-        json.dump(history, history_file, indent=4)
+        with open("history.json", mode="w") as history_file:
+            json.dump(history, history_file, indent=4)
+
+
+def remove_user_from_blacklist(user_id: str):
+    """Removes user from blacklist if user in blacklist
+
+    :param user_id: The id of the user to remove from the blacklist
+    :type user_id: str"""
+
+    users_blacklist = get_users_blacklist()
+    if user_id in users_blacklist:
+        users_blacklist.remove(user_id)
+
+        with open("history.json", mode="r") as history_file:
+            history = json.load(history_file)
+
+        history.update({"users_blacklist": users_blacklist})
+
+        with open("history.json", mode="w") as history_file:
+            json.dump(history, history_file, indent=4)

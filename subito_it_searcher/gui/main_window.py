@@ -1,5 +1,9 @@
 import customtkinter as ctk
-from .widgets.labeled_entry import LabeledEntry
+
+# TEST
+import json
+from .widgets.ad_expanding_card import AdExpandingCard
+from ..classes.advertisement import Advertisement
 
 
 class GUI(ctk.CTk):
@@ -13,5 +17,17 @@ class GUI(ctk.CTk):
         self.grid_columnconfigure(0, weight=0)
         self.grid_columnconfigure(1, weight=1)
         self.grid_columnconfigure(2, weight=0)
+        # self.grid_rowconfigure(0, weight=1)
 
-        LabeledEntry(self, "asd", "test").grid(row=0, column=0)
+        # TEST
+
+        with open("tests/test_ad.json", mode="r") as test_ad_file:
+            ad = json.load(test_ad_file)
+
+        advertisement = Advertisement(ad)
+
+        self.ad = AdExpandingCard(self, advertisement)
+        self.ad.grid(row=0, column=1, padx=10, pady=5, sticky="nswe")
+
+        self.ad2 = AdExpandingCard(self, advertisement)
+        self.ad2.grid(row=1, column=1, padx=10, pady=5, sticky="nswe")
