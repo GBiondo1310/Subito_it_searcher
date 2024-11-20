@@ -60,7 +60,7 @@ def remove_from_past_ads(ad_id: str):
 
     past_ads = get_past_ads()
     if ad_id in past_ads:
-        past_ads.append(ad_id)
+        past_ads.remove(ad_id)
         with open("history.json", mode="r") as history_file:
             history = json.load(history_file)
 

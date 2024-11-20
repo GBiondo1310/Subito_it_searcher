@@ -113,9 +113,9 @@ class AdExpandingCard(ctk.CTkFrame):
         self.ad_action = ctk.CTkButton(
             self.footer_frame,
             text=(
-                "Remove ad from past ads"
+                "Remove advertisement from past ads"
                 if self.ad_in_past_ads
-                else "Add ad from past ads"
+                else "Add adadvertisement to past ads"
             ),
             command=self.add_past_ad,
         )
@@ -155,7 +155,7 @@ class AdExpandingCard(ctk.CTkFrame):
             imgLabel = ctk.CTkLabel(self.inner_image_frame, image=img, text="")
             imgLabel.grid(row=2, column=0, padx=5, sticky="nswe")
 
-            with open("picures/index.txt", mode="w") as index_file:
+            with open("pictures/index.txt", mode="w") as index_file:
                 index_file.write(str(index))
 
             self.image_downloaded = True
@@ -172,10 +172,11 @@ class AdExpandingCard(ctk.CTkFrame):
 
     def add_past_ad(self, *e):
         """Adds or removes ad to past ads"""
-        self.ad_in_past_ads = not self.ad_in_past_ads
+
         if self.ad_in_past_ads:
-            self.ad_action.configure(text="Add ad to past ads")
+            self.ad_action.configure(text="Remove advertisement from past ads")
             remove_from_past_ads(self.ad.ad_id)
         else:
-            self.ad_action.configure(text="Remoe ad from past ads")
+            self.ad_action.configure(text="Add advertisement to past ads")
             add_past_ads(self.ad.ad_id)
+        self.ad_in_past_ads = not self.ad_in_past_ads
