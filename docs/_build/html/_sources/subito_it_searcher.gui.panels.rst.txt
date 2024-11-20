@@ -1,0 +1,29 @@
+subito\_it\_searcher.gui.panels package
+=======================================
+
+Submodules
+----------
+
+subito\_it\_searcher.gui.panels.main\_panel module
+--------------------------------------------------
+
+.. automodule:: subito_it_searcher.gui.panels.main_panel
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+subito\_it\_searcher.gui.panels.search\_panel module
+----------------------------------------------------
+
+.. automodule:: subito_it_searcher.gui.panels.search_panel
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: subito_it_searcher.gui.panels
+   :members:
+   :undoc-members:
+   :show-inheritance:

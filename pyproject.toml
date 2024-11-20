@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "subito_it_searcher"
-version = "1.1.1.dev0"
+version = "2.0.0.dev0"
 authors = [
     { name="GBiondo1310", email="giacomo.biondelli@gmail.com" },
 ]

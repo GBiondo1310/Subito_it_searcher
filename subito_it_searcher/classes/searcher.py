@@ -102,5 +102,4 @@ class Searcher(Subito):
                 return False
             if ad.selling_price > self.max_price:
                 return False
-
         return True

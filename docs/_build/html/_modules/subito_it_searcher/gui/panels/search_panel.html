@@ -1,0 +1,283 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>subito_it_searcher.gui.panels.search_panel &mdash; subito_it_searcher 0.0.1.dev0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../../_static/documentation_options.js?v=75d19225"></script>
+      <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            subito_it_searcher
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../modules.html">subito_it_searcher</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">subito_it_searcher</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">subito_it_searcher.gui.panels.search_panel</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for subito_it_searcher.gui.panels.search_panel</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">tkinter</span> <span class="k">as</span> <span class="nn">tk</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">customtkinter</span> <span class="k">as</span> <span class="nn">ctk</span>
+
+<span class="kn">from</span> <span class="nn">.main_panel</span> <span class="kn">import</span> <span class="n">MainPanel</span>
+
+<span class="kn">from</span> <span class="nn">..widgets.labeled_entry</span> <span class="kn">import</span> <span class="n">LabeledEntry</span>
+<span class="kn">from</span> <span class="nn">..widgets.labeled_option_menu</span> <span class="kn">import</span> <span class="n">LabeledOptionsMenu</span>
+<span class="kn">from</span> <span class="nn">..widgets.warning_dialog</span> <span class="kn">import</span> <span class="n">WarningDialog</span>
+
+<span class="kn">from</span> <span class="nn">...classes.searcher</span> <span class="kn">import</span> <span class="n">Searcher</span>
+
+
+<div class="viewcode-block" id="SearchPanel">
+<a class="viewcode-back" href="../../../../subito_it_searcher.gui.panels.html#subito_it_searcher.gui.panels.search_panel.SearchPanel">[docs]</a>
+<span class="k">class</span> <span class="nc">SearchPanel</span><span class="p">(</span><span class="n">ctk</span><span class="o">.</span><span class="n">CTkFrame</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Search frame</span>
+<span class="sd">    User can input search parameters&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">master</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialization function&quot;&quot;&quot;</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">master</span><span class="o">=</span><span class="n">master</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">search_entry</span> <span class="o">=</span> <span class="n">LabeledEntry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;Ricerca&quot;</span><span class="p">,</span> <span class="s2">&quot;Articolo&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">search_entry</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">search_entry</span><span class="o">.</span><span class="n">on_return</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">search</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ads_number_entry</span> <span class="o">=</span> <span class="n">LabeledEntry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;Risultati&quot;</span><span class="p">,</span> <span class="s2">&quot;100&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ads_number_entry</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ads_number_entry</span><span class="o">.</span><span class="n">on_return</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">search</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_price_entry</span> <span class="o">=</span> <span class="n">LabeledEntry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;Prezzo minimo&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_price_entry</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">min_price_entry</span><span class="o">.</span><span class="n">on_return</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">search</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_price_entry</span> <span class="o">=</span> <span class="n">LabeledEntry</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;Prezzo Massimo&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_price_entry</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max_price_entry</span><span class="o">.</span><span class="n">on_return</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">search</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">order_by_menu</span> <span class="o">=</span> <span class="n">LabeledOptionsMenu</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;Ordina per&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;Data&quot;</span><span class="p">,</span> <span class="s2">&quot;Prezzo crescente&quot;</span><span class="p">,</span> <span class="s2">&quot;Prezzo descrescente&quot;</span><span class="p">]</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">order_by_menu</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">match_exact_search</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTkSwitch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Match exact text&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">match_exact_search</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">exclude_blacklisted_sellers</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTkSwitch</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Exclude blacklisted sellers&quot;</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exclude_blacklisted_sellers</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span>
+            <span class="n">row</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;w&quot;</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">exclude_past_ads</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTkSwitch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Exclude past ads&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exclude_past_ads</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">exclude_sold_items</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTkSwitch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Exclude sold items&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">exclude_sold_items</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_rowconfigure</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_columnconfigure</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">search_button</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTkButton</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;CERCA&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">search</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">search_button</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SearchPanel.search">
+<a class="viewcode-back" href="../../../../subito_it_searcher.gui.panels.html#subito_it_searcher.gui.panels.search_panel.SearchPanel.search">[docs]</a>
+    <span class="k">def</span> <span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">e</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Makes the research and updates the main frame&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_control</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">main_panel</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">main_panel</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTkLabel</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Sto elaborando...&quot;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
+            <span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">main_panel</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;nswe&quot;</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;rm -r pictures&quot;</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="s2">&quot;pictures&quot;</span><span class="p">)</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;pictures/index.txt&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">pictures_index</span><span class="p">:</span>
+                <span class="n">pictures_index</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;0&quot;</span><span class="p">)</span>
+
+            <span class="k">def</span> <span class="nf">go_on</span><span class="p">():</span>
+
+                <span class="n">max_price</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_price_entry</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_price_entry</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">isnumeric</span><span class="p">()</span>
+                    <span class="k">else</span> <span class="kc">None</span>
+                <span class="p">)</span>
+                <span class="n">min_price</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">min_price_entry</span><span class="o">.</span><span class="n">get</span><span class="p">())</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_price_entry</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">isnumeric</span><span class="p">()</span>
+                    <span class="k">else</span> <span class="kc">None</span>
+                <span class="p">)</span>
+
+                <span class="n">searcher</span> <span class="o">=</span> <span class="n">Searcher</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">search_entry</span><span class="o">.</span><span class="n">get</span><span class="p">(),</span>
+                    <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ads_number_entry</span><span class="o">.</span><span class="n">get</span><span class="p">()),</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">order_by</span><span class="p">,</span>
+                    <span class="n">min_price</span><span class="p">,</span>
+                    <span class="n">max_price</span><span class="p">,</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">match_exact_search</span><span class="o">.</span><span class="n">get</span><span class="p">(),</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">exclude_blacklisted_sellers</span><span class="o">.</span><span class="n">get</span><span class="p">(),</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">exclude_past_ads</span><span class="o">.</span><span class="n">get</span><span class="p">(),</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">exclude_sold_items</span><span class="o">.</span><span class="n">get</span><span class="p">(),</span>
+                <span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">main_panel</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+
+                <span class="n">mf</span> <span class="o">=</span> <span class="n">MainPanel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_entry</span><span class="o">.</span><span class="n">get</span><span class="p">(),</span> <span class="n">searcher</span><span class="o">.</span><span class="n">ads</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">main_panel</span> <span class="o">=</span> <span class="n">mf</span>
+                <span class="n">mf</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;nswe&quot;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">after</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">go_on</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SearchPanel.input_control">
+<a class="viewcode-back" href="../../../../subito_it_searcher.gui.panels.html#subito_it_searcher.gui.panels.search_panel.SearchPanel.input_control">[docs]</a>
+    <span class="k">def</span> <span class="nf">input_control</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks user input&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_entry</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+            <span class="n">WarningDialog</span><span class="p">(</span><span class="s2">&quot;Missing input&quot;</span><span class="p">,</span> <span class="s2">&quot;Please insert search terms&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">search_entry</span><span class="o">.</span><span class="n">focus_set</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ads_number_entry</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+            <span class="n">WarningDialog</span><span class="p">(</span><span class="s2">&quot;Missing input&quot;</span><span class="p">,</span> <span class="s2">&quot;Please insert ads amount (min 100)&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ads_number_entry</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ads_number_entry</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">isnumeric</span><span class="p">():</span>
+            <span class="n">WarningDialog</span><span class="p">(</span><span class="s2">&quot;Wrong input&quot;</span><span class="p">,</span> <span class="s2">&quot;Ads number must be an integer number&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ads_number_entry</span><span class="o">.</span><span class="n">focus_set</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ads_number_entry</span><span class="o">.</span><span class="n">get</span><span class="p">())</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">:</span>
+            <span class="n">WarningDialog</span><span class="p">(</span><span class="s2">&quot;Wrong input&quot;</span><span class="p">,</span> <span class="s2">&quot;Must search at lease 100 ads&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ads_number_entry</span><span class="o">.</span><span class="n">focus_set</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_price_entry</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_price_entry</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">isnumeric</span><span class="p">():</span>
+                <span class="n">WarningDialog</span><span class="p">(</span>
+                    <span class="s2">&quot;Wrong input&quot;</span><span class="p">,</span> <span class="s2">&quot;Minimum price must be a floating point number&quot;</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">min_price_entry</span><span class="o">.</span><span class="n">focus_set</span><span class="p">()</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_price_entry</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_price_entry</span><span class="o">.</span><span class="n">get</span><span class="p">()</span><span class="o">.</span><span class="n">isnumeric</span><span class="p">():</span>
+                <span class="n">WarningDialog</span><span class="p">(</span>
+                    <span class="s2">&quot;Wrong input&quot;</span><span class="p">,</span> <span class="s2">&quot;Maximum price must be a floating point number&quot;</span>
+                <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">max_price_entry</span><span class="o">.</span><span class="n">focus_set</span><span class="p">()</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">order_by</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">match</span> <span class="bp">self</span><span class="o">.</span><span class="n">order_by_menu</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+            <span class="k">case</span> <span class="s2">&quot;Prezzo crescente&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s2">&quot;lowest price&quot;</span>
+            <span class="k">case</span> <span class="s2">&quot;Prezzo descrescente&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s2">&quot;highest price&quot;</span>
+            <span class="k">case</span> <span class="s2">&quot;Data&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s2">&quot;date&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">min_price</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_price_entry</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">max_price</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_price_entry</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
+            <span class="k">return</span> <span class="mi">99999</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, GBiondo1310.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

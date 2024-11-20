@@ -1,4 +1,5 @@
 import tkinter as tk
+import webbrowser
 from PIL import Image
 
 import customtkinter as ctk
@@ -17,13 +18,15 @@ from ..._funcs import (
 class AdExpandingCard(ctk.CTkFrame):
     """Advertisement collapsing card"""
 
-    def __init__(self, master: ctk.CTkBaseClass, ad: Advertisement):
+    def __init__(self, master: ctk.CTkBaseClass, ad: Advertisement, row: int = 0):
         """Initializes a new AdExpandingCard instance
 
         :param master: The master widget
         :type master: ctk.CTkBaseClass
         :param ad: The Advertisement to visualize
         :type ad: Advertisement
+        :param row: The master widget's grid row in which place this instance, defaults to 0
+        :type row: int, optional
         """
 
         super().__init__(master)
@@ -119,11 +122,25 @@ class AdExpandingCard(ctk.CTkFrame):
             ),
             command=self.add_past_ad,
         )
+        self.open_link_button = ctk.CTkButton(
+            self.footer_frame, text="View in browser", command=self.open_link
+        )
 
         self.expanded.set(False)
 
         self.user_action.grid(row=0, column=0, padx=10, pady=2, sticky="nswe")
         self.ad_action.grid(row=0, column=1, padx=10, pady=2, sticky="nswe")
+        self.open_link_button.grid(row=0, column=2, padx=10, pady=2, sticky="nswe")
+
+        self.row = row
+
+    def __str__(self) -> str:
+        """String representation
+        :rtype: str"""
+        return f"AEC {self.ad.ad_id}"
+
+    def __repr__(self) -> str:
+        return self.__str__()
 
     def expand(self, *e):
         """Expands the ad card"""
@@ -180,3 +197,11 @@ class AdExpandingCard(ctk.CTkFrame):
             self.ad_action.configure(text="Add advertisement to past ads")
             add_past_ads(self.ad.ad_id)
         self.ad_in_past_ads = not self.ad_in_past_ads
+
+    def auto_place(self):
+        """Function to quickly place this widget using the :func:``self.row``property"""
+        self.grid(row=self.row, column=0, padx=10, pady=5, sticky="nswe")
+
+    def open_link(self, *e):
+        """Opens the ad's link in a browser"""
+        webbrowser.open(self.ad.url, new=2)

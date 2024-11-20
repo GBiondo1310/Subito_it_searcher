@@ -73,8 +73,12 @@
 
 <span class="c1"># TEST</span>
 <span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">from</span> <span class="nn">.widgets.ad_expanding_card</span> <span class="kn">import</span> <span class="n">AdExpandingCard</span>
-<span class="kn">from</span> <span class="nn">..classes.advertisement</span> <span class="kn">import</span> <span class="n">Advertisement</span>
+
+<span class="c1"># from .widgets.ad_expanding_card import AdExpandingCard</span>
+<span class="c1"># from ..classes.advertisement import Advertisement</span>
+
+<span class="kn">from</span> <span class="nn">.panels.search_panel</span> <span class="kn">import</span> <span class="n">SearchPanel</span>
+<span class="kn">from</span> <span class="nn">.panels.main_panel</span> <span class="kn">import</span> <span class="n">MainPanel</span>
 
 
 <div class="viewcode-block" id="GUI">
@@ -90,20 +94,28 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">grid_columnconfigure</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grid_columnconfigure</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grid_columnconfigure</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="c1"># self.grid_rowconfigure(0, weight=1)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_rowconfigure</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
         <span class="c1"># TEST</span>
 
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;tests/test_ad.json&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">test_ad_file</span><span class="p">:</span>
-            <span class="n">ad</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">test_ad_file</span><span class="p">)</span>
+        <span class="c1"># with open(&quot;tests/test_ad.json&quot;, mode=&quot;r&quot;) as test_ad_file:</span>
+        <span class="c1">#     ad = json.load(test_ad_file)</span>
 
-        <span class="n">advertisement</span> <span class="o">=</span> <span class="n">Advertisement</span><span class="p">(</span><span class="n">ad</span><span class="p">)</span>
+        <span class="c1"># advertisement = Advertisement(ad)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">ad</span> <span class="o">=</span> <span class="n">AdExpandingCard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">advertisement</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ad</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;nswe&quot;</span><span class="p">)</span>
+        <span class="c1"># self.ad = AdExpandingCard(self, advertisement)</span>
+        <span class="c1"># self.ad.grid(row=0, column=1, padx=10, pady=5, sticky=&quot;nswe&quot;)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">ad2</span> <span class="o">=</span> <span class="n">AdExpandingCard</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">advertisement</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">ad2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;nswe&quot;</span><span class="p">)</span></div>
+        <span class="c1"># self.ad2 = AdExpandingCard(self, advertisement)</span>
+        <span class="c1"># self.ad2.grid(row=1, column=1, padx=10, pady=5, sticky=&quot;nswe&quot;)</span>
+
+        <span class="c1"># TEST 2</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">search_panel</span> <span class="o">=</span> <span class="n">SearchPanel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">search_panel</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;nswe&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_panel</span> <span class="o">=</span> <span class="n">MainPanel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="p">[])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">main_panel</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;nswe&quot;</span><span class="p">)</span></div>
 
 </pre></div>
 
