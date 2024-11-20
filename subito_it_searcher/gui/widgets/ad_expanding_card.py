@@ -201,6 +201,7 @@ class AdExpandingCard(ctk.CTkFrame):
     def auto_place(self):
         """Function to quickly place this widget using the :func:``self.row``property"""
         self.grid(row=self.row, column=0, padx=10, pady=5, sticky="nswe")
+        self.ad.add_to_past_ads()
 
     def open_link(self, *e):
         """Opens the ad's link in a browser"""

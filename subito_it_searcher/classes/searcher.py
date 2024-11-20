@@ -84,7 +84,7 @@ class Searcher(Subito):
                 return False
 
         if self.exclude_past_ads:
-            if ad.ad_id in get_past_ads:
+            if ad.ad_id in get_past_ads():
                 return False
 
         if self.exclude_sold_items:
