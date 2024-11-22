@@ -63,6 +63,8 @@ class Searcher(Subito):
             result for result in _ads if self.ad_matches_filters(result)
         ]
 
+        self.sort_ads_by_price_desc()
+
     def ad_matches_filters(self, ad: Advertisement) -> bool:
         """Checks if the passed Advertisement matches search filters
 
@@ -103,3 +105,19 @@ class Searcher(Subito):
             if ad.selling_price > self.max_price:
                 return False
         return True
+
+    def sort_ads_by_price_asc(self):
+        """Sorts ``self.ads`` by price ascending"""
+
+        def return_price(ad: Advertisement):
+            return ad.selling_price
+
+        self.ads.sort(key=return_price)
+
+    def sort_ads_by_price_desc(self):
+        """Sorts ``self.ads`` by price descending"""
+
+        def return_price(ad: Advertisement):
+            return ad.selling_price
+
+        self.ads.sort(key=return_price)
