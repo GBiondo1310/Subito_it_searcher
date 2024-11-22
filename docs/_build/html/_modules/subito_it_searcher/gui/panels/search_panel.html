@@ -80,7 +80,8 @@
 <span class="kn">from</span> <span class="nn">..widgets.labeled_option_menu</span> <span class="kn">import</span> <span class="n">LabeledOptionsMenu</span>
 <span class="kn">from</span> <span class="nn">..widgets.warning_dialog</span> <span class="kn">import</span> <span class="n">WarningDialog</span>
 
-<span class="kn">from</span> <span class="nn">...classes.searcher</span> <span class="kn">import</span> <span class="n">Searcher</span>
+<span class="kn">from</span> <span class="nn">...classes.searcher</span> <span class="kn">import</span> <span class="n">Searcher</span><span class="p">,</span> <span class="n">Advertisement</span>
+<span class="kn">from</span> <span class="nn">..._funcs</span> <span class="kn">import</span> <span class="n">get_favorites</span><span class="p">,</span> <span class="n">purge_pictures</span>
 
 
 <div class="viewcode-block" id="SearchPanel">
@@ -134,8 +135,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">grid_rowconfigure</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">grid_columnconfigure</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">search_button</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTkButton</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;CERCA&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">search</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">search_button</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTkButton</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;SEARCH&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">search</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">search_button</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">favorites_button</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTkButton</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Favorites&quot;</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">show_favorites</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">favorites_button</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 
 <div class="viewcode-block" id="SearchPanel.search">
 <a class="viewcode-back" href="../../../../subito_it_searcher.gui.panels.html#subito_it_searcher.gui.panels.search_panel.SearchPanel.search">[docs]</a>
@@ -144,15 +150,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_control</span><span class="p">():</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">main_panel</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
 
-            <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">main_panel</span> <span class="o">=</span> <span class="n">ctk</span><span class="o">.</span><span class="n">CTkLabel</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Sto elaborando...&quot;</span><span class="p">,</span> <span class="n">font</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">32</span><span class="p">)</span>
-            <span class="p">)</span>
-
-            <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">main_panel</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;nswe&quot;</span><span class="p">)</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&quot;rm -r pictures&quot;</span><span class="p">)</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="s2">&quot;pictures&quot;</span><span class="p">)</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;pictures/index.txt&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">pictures_index</span><span class="p">:</span>
-                <span class="n">pictures_index</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;0&quot;</span><span class="p">)</span>
+            <span class="n">purge_pictures</span><span class="p">()</span>
 
             <span class="k">def</span> <span class="nf">go_on</span><span class="p">():</span>
 
@@ -178,8 +176,6 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">exclude_past_ads</span><span class="o">.</span><span class="n">get</span><span class="p">(),</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">exclude_sold_items</span><span class="o">.</span><span class="n">get</span><span class="p">(),</span>
                 <span class="p">)</span>
-
-                <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">main_panel</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
 
                 <span class="n">mf</span> <span class="o">=</span> <span class="n">MainPanel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_entry</span><span class="o">.</span><span class="n">get</span><span class="p">(),</span> <span class="n">searcher</span><span class="o">.</span><span class="n">ads</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">main_panel</span> <span class="o">=</span> <span class="n">mf</span>
@@ -249,7 +245,25 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">max_price</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_price_entry</span><span class="o">.</span><span class="n">get</span><span class="p">():</span>
-            <span class="k">return</span> <span class="mi">99999</span></div>
+            <span class="k">return</span> <span class="mi">99999</span>
+
+<div class="viewcode-block" id="SearchPanel.show_favorites">
+<a class="viewcode-back" href="../../../../subito_it_searcher.gui.panels.html#subito_it_searcher.gui.panels.search_panel.SearchPanel.show_favorites">[docs]</a>
+    <span class="k">def</span> <span class="nf">show_favorites</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Displays all favorites Advertisements&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">main_panel</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+
+        <span class="n">purge_pictures</span><span class="p">()</span>
+
+        <span class="n">ads</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">ad</span> <span class="ow">in</span> <span class="n">get_favorites</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">ads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Advertisement</span><span class="p">(</span><span class="n">ad</span><span class="p">))</span>
+
+        <span class="n">mf</span> <span class="o">=</span> <span class="n">MainPanel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="p">,</span> <span class="s2">&quot;Favorites&quot;</span><span class="p">,</span> <span class="n">ads</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">master</span><span class="o">.</span><span class="n">main_panel</span> <span class="o">=</span> <span class="n">mf</span>
+        <span class="n">mf</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">row</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">padx</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">pady</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">sticky</span><span class="o">=</span><span class="s2">&quot;nsnwe&quot;</span><span class="p">)</span></div>
+</div>
 
 </pre></div>
 

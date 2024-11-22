@@ -12,6 +12,9 @@ from ..._funcs import (
     get_users_blacklist,
     remove_user_from_blacklist,
     remove_from_past_ads,
+    get_favorites,
+    add_to_favorites,
+    remove_from_favorites,
 )
 
 
@@ -98,11 +101,16 @@ class AdExpandingCard(ctk.CTkFrame):
         # ----- FOOTER FRAME ----- #
         self.footer_frame = ctk.CTkFrame(self)
         self.footer_frame.grid_rowconfigure(0, weight=1)
+        self.footer_frame.grid_columnconfigure(3, weight=1)
 
         self.user_blacklisted = (
             True if self.ad.user_id in get_users_blacklist() else False
         )
         self.ad_in_past_ads = True if self.ad.ad_id in get_past_ads() else False
+
+        self.ad_in_favorites = (
+            True if self.ad.ad_id in get_favorites().keys() else False
+        )
 
         self.user_action = ctk.CTkButton(
             self.footer_frame,
@@ -126,11 +134,20 @@ class AdExpandingCard(ctk.CTkFrame):
             self.footer_frame, text="View in browser", command=self.open_link
         )
 
+        self.fav_button = ctk.CTkButton(
+            self.footer_frame,
+            text=(
+                "Remove from favorites" if self.ad_in_favorites else "Add to favorites"
+            ),
+            command=self.favorites,
+        )
+
         self.expanded.set(False)
 
         self.user_action.grid(row=0, column=0, padx=10, pady=2, sticky="nswe")
         self.ad_action.grid(row=0, column=1, padx=10, pady=2, sticky="nswe")
         self.open_link_button.grid(row=0, column=2, padx=10, pady=2, sticky="nswe")
+        self.fav_button.grid(row=0, column=3, padx=10, pady=5, sticky="nse")
 
         self.row = row
 
@@ -191,10 +208,10 @@ class AdExpandingCard(ctk.CTkFrame):
         """Adds or removes ad to past ads"""
 
         if self.ad_in_past_ads:
-            self.ad_action.configure(text="Remove advertisement from past ads")
+            self.ad_action.configure(text="Add advertisement to past ads")
             remove_from_past_ads(self.ad.ad_id)
         else:
-            self.ad_action.configure(text="Add advertisement to past ads")
+            self.ad_action.configure(text="Remove advertisement from past ads")
             add_past_ads(self.ad.ad_id)
         self.ad_in_past_ads = not self.ad_in_past_ads
 
@@ -206,3 +223,15 @@ class AdExpandingCard(ctk.CTkFrame):
     def open_link(self, *e):
         """Opens the ad's link in a browser"""
         webbrowser.open(self.ad.url, new=2)
+
+    def favorites(self, *e):
+        """Adds or removes ad to favorites"""
+
+        if self.ad_in_favorites:
+            self.fav_button.configure(text="Add to favorites")
+            self.ad.remove_from_favorites()
+        else:
+            self.fav_button.configure(text="Remove from favorites")
+            self.ad.add_to_favorites()
+
+        self.ad_in_favorites = not self.ad_in_favorites

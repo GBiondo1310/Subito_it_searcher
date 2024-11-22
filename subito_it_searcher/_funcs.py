@@ -1,5 +1,6 @@
 import wget
 import json
+import os
 
 
 def get_image(image_url: str, out: str):
@@ -105,3 +106,60 @@ def remove_user_from_blacklist(user_id: str):
 
         with open("history.json", mode="w") as history_file:
             json.dump(history, history_file, indent=4)
+
+
+def get_favorites() -> dict:
+    """Returns advertisement in favorites
+
+    :rtype: dict"""
+    with open("history.json", mode="r") as history_file:
+        history = json.load(history_file)
+
+    return history.get("favorites")
+
+
+def add_to_favorites(advertisement: dict):
+    """Adds an ad to favorites
+
+    :param advertisement: The advertisement to add to the favorites
+    :type advertisement: dict"""
+    ad_id = advertisement.get("urn").split(":list:")[1]
+    with open("history.json", mode="r") as history_file:
+        history = json.load(history_file)
+
+    favorites: dict = history.get("favorites")
+
+    if ad_id not in favorites.keys():
+        favorites.update({ad_id: advertisement})
+
+    history.update({"favorites": favorites})
+
+    with open("history.json", mode="w") as history_file:
+        json.dump(history, history_file, indent=4)
+
+
+def remove_from_favorites(advertisement: dict):
+    """Removes an ad from favorites
+
+    :param advertisement: The advertisement to remove from favorites
+    :type advertisement: dict"""
+
+    ad_id = advertisement.get("urn").split(":list:")[1]
+    with open("history.json", mode="r") as history_file:
+        history = json.load(history_file)
+
+    favorites: dict = history.get("favorites")
+
+    if ad_id in favorites.keys():
+        favorites.pop(ad_id)
+
+    with open("history.json", mode="w") as history_file:
+        json.dump(history, history_file, indent=4)
+
+
+def purge_pictures():
+    """Purges pictures directory"""
+    os.system("rm -r pictures")
+    os.mkdir("pictures")
+    with open("pictures/index.txt", mode="w") as pictures_index:
+        pictures_index.write("0")

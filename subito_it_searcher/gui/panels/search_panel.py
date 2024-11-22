@@ -9,7 +9,8 @@ from ..widgets.labeled_entry import LabeledEntry
 from ..widgets.labeled_option_menu import LabeledOptionsMenu
 from ..widgets.warning_dialog import WarningDialog
 
-from ...classes.searcher import Searcher
+from ...classes.searcher import Searcher, Advertisement
+from ..._funcs import get_favorites, purge_pictures
 
 
 class SearchPanel(ctk.CTkFrame):
@@ -61,23 +62,20 @@ class SearchPanel(ctk.CTkFrame):
         self.grid_rowconfigure(9, weight=1)
         self.grid_columnconfigure(0, weight=1)
 
-        self.search_button = ctk.CTkButton(self, text="CERCA", command=self.search)
+        self.search_button = ctk.CTkButton(self, text="SEARCH", command=self.search)
         self.search_button.grid(row=9, column=0, padx=5, pady=10)
+
+        self.favorites_button = ctk.CTkButton(
+            self, text="Favorites", command=self.show_favorites
+        )
+        self.favorites_button.grid(row=10, column=0, padx=5, pady=10)
 
     def search(self, *e):
         """Makes the research and updates the main frame"""
         if self.input_control():
             self.master.main_panel.destroy()
 
-            self.master.main_panel = ctk.CTkLabel(
-                self.master, text="Sto elaborando...", font=(None, 32)
-            )
-
-            self.master.main_panel.grid(row=0, column=0, sticky="nswe")
-            os.system("rm -r pictures")
-            os.mkdir("pictures")
-            with open("pictures/index.txt", mode="w") as pictures_index:
-                pictures_index.write("0")
+            purge_pictures()
 
             def go_on():
 
@@ -103,8 +101,6 @@ class SearchPanel(ctk.CTkFrame):
                     self.exclude_past_ads.get(),
                     self.exclude_sold_items.get(),
                 )
-
-                self.master.main_panel.destroy()
 
                 mf = MainPanel(self.master, self.search_entry.get(), searcher.ads)
                 self.master.main_panel = mf
@@ -171,3 +167,18 @@ class SearchPanel(ctk.CTkFrame):
     def max_price(self):
         if not self.max_price_entry.get():
             return 99999
+
+    def show_favorites(self):
+        """Displays all favorites Advertisements"""
+        self.master.main_panel.destroy()
+
+        purge_pictures()
+
+        ads = []
+
+        for key, ad in get_favorites().items():
+            ads.append(Advertisement(ad))
+
+        mf = MainPanel(self.master, "Favorites", ads)
+        self.master.main_panel = mf
+        mf.grid(row=0, column=1, padx=10, pady=10, sticky="nsnwe")

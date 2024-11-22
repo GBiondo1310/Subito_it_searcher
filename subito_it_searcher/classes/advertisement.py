@@ -1,7 +1,13 @@
 from datetime import datetime
 
 from .._consts import SUBITO_DATE_FORMAT
-from .._funcs import add_user_to_blacklist, add_past_ads
+from .._funcs import (
+    add_user_to_blacklist,
+    add_past_ads,
+    add_to_favorites,
+    remove_from_favorites,
+    get_favorites,
+)
 
 
 class Advertisement:
@@ -105,6 +111,16 @@ class Advertisement:
 
         return images
 
+    @property
+    def is_favorite(self) -> bool:
+        """Returns wether ``self._obj`` has been stored in favorites or not
+
+        :rtype: bool"""
+        favorites = get_favorites()
+        if self.ad_id in favorites.keys():
+            return True
+        return False
+
     def add_user_to_blacklist(self):
         """Adds advertisement's user to blacklisted users"""
 
@@ -114,3 +130,12 @@ class Advertisement:
         """Adds this advertisement to past ads"""
 
         add_past_ads(self.ad_id)
+
+    def add_to_favorites(self):
+        """Adds this Ad to favorites"""
+
+        add_to_favorites(self._obj)
+
+    def remove_from_favorites(self):
+        """Removes this Ad from favorites"""
+        remove_from_favorites(self._obj)
